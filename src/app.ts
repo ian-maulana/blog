@@ -1,8 +1,8 @@
 import express from 'express';
-// import user_routes from "../app/routes";
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import user from './routes/user';
 
 const app = express();
 
@@ -18,6 +18,6 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(bodyParser.json());
 
-// user_routes(app);
+app.use('/api/v1/user', user);
 
 export default app;
