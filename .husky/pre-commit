@@ -1,0 +1,15 @@
+echo 'Prepare to check code style';
+
+# Check Prettier standards
+yarn run format || yarn run format:fix
+
+# Check ESLint Standards
+yarn run lint:all ||
+(
+  echo 'ESLint Check Failed. Please check & fix your code.'
+  false; 
+)
+
+# If everything passes... Now we can commit
+echo '\n\n';
+echo 'Nice... Your code has been commit.'

@@ -1,0 +1,25 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2015,
+    "sourceType": "script"
+  },
+  "rules": {
+    "no-console": "warn",
+    "react/display-name": 0,
+    "no-unused-vars": [
+      "error",
+      {
+        "vars": "all",
+        "argsIgnorePattern": "_",
+        "caughtErrorsIgnorePattern": "_"
+      }
+    ]
+  }
+}
