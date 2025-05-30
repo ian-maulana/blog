@@ -3,24 +3,29 @@
     "eslint:recommended",
     "plugin:prettier/recommended",
     "plugin:@typescript-eslint/recommended",
-    "prettier"
+    "prettier",
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 2015,
-    "sourceType": "script"
+    "sourceType": "script",
   },
   "rules": {
     "no-console": "warn",
     "react/display-name": 0,
     "no-useless-escape": 0,
-    "no-unused-vars": [
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": [
       "error",
       {
-        "vars": "all",
-        "argsIgnorePattern": "_",
-        "caughtErrorsIgnorePattern": "_"
-      }
-    ]
-  }
+        "args": "all",
+        "argsIgnorePattern": "^_",
+        "caughtErrors": "all",
+        "caughtErrorsIgnorePattern": "^_",
+        "destructuredArrayIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "ignoreRestSiblings": true,
+      },
+    ],
+  },
 }

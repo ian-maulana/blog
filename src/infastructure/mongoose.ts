@@ -7,14 +7,17 @@ mongoose.Promise = Promise;
 
 const config: string = MONGO_URI;
 mongoose.set('debug', (collectionName, method, query, doc) => {
-  logger.info(`${collectionName}.${method}`, JSON.stringify(query), doc);
+  logger.debug(`${collectionName}.${method}`, JSON.stringify(query), doc);
 });
 
 mongoose
-  .connect(config, { autoIndex: true, dbName: 'coret' })
+  .connect(config, {
+    autoIndex: true,
+    dbName: 'blog',
+  })
   .then(() => logger.info('connection successful'))
   .catch(error => {
-    logger.info(error);
+    logger.error(error);
     process.exit(1);
   });
 

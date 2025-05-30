@@ -1,11 +1,16 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import user from './routes/user';
+
+import userv1 from './routes/v1/user';
+import onboardV1 from './routes/v1/onboard';
+import morganLogger from './utils/morgan_logger';
+import errorCatch from './utils/error_catch';
+import ErrorMapper from './utils/error_mapper';
 
 const app = express();
 
+app.use(morganLogger);
 app.use(
   cors({
     origin: ['*'],
@@ -14,10 +19,17 @@ app.use(
   }),
 );
 
-app.use(cookieParser());
 app.use(express.json());
-app.use(bodyParser.json());
+app.use(cookieParser());
 
-app.use('/api/v1/user', user);
+app.use('/api/v1/user', userv1);
+app.use('/api/v1/onboard', onboardV1);
+
+// handling 404 not found
+app.use((_req, _res, next) => {
+  return next(new ErrorMapper('Resource not found', 404));
+});
+
+app.use(errorCatch);
 
 export default app;
