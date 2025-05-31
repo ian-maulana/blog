@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer';
-import logger from '../utils/logger';
+
+import logger from '@utils/logger';
 
 async function sendEmail(options: {
   email: string;

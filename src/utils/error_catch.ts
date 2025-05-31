@@ -1,7 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
-import ResponseModel from '../domain/response_model';
-import logger from './logger';
-import ErrorMapper from './error_mapper';
+
+import ResponseModel from '@domain/response_model';
+
+import ErrorMapper from '@utils/error_mapper';
+import logger from '@utils/logger';
 
 const errorCatch = (
   err: ErrorMapper,

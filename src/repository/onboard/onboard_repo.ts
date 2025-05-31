@@ -1,5 +1,5 @@
-import { IUser } from '../../domain/user_model';
+import { IUser } from '@domain/user_model';
 
 export interface OnboardRepo {
-  createPassword(token: string, password: string): Promise<IUser | null>;
+  resetPassword(token: string, password: string): Promise<IUser | null>;
 }

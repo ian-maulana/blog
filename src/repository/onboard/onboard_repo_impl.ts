@@ -1,9 +1,11 @@
-import { IUser, UserModel } from '../../domain/user_model';
-import { OnboardRepo } from './onboard_repo';
 import crypto from 'crypto';
 
+import { IUser, UserModel } from '@domain/user_model';
+
+import { OnboardRepo } from '@repository/onboard/onboard_repo';
+
 class OnboardRepoImpl implements OnboardRepo {
-  async createPassword(token: string, password: string): Promise<IUser | null> {
+  async resetPassword(token: string, password: string): Promise<IUser | null> {
     // Get hashed token
     const passwordToken = crypto
       .createHash('sha256')

@@ -1,4 +1,4 @@
-import { IUser } from '../../domain/user_model';
+import { IUser } from '@domain/user_model';
 
 export interface UserRepo {
   findAll(): Promise<IUser[]>;
@@ -7,5 +7,4 @@ export interface UserRepo {
   update(user: IUser): Promise<IUser | null>;
   delete(id: string): Promise<IUser | null>;
   create(user: IUser): Promise<IUser | null>;
-  getPasswordToken(id: string): Promise<string | undefined>;
 }

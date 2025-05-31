@@ -1,12 +1,13 @@
-import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import express from 'express';
 
-import userv1 from './routes/v1/user';
-import onboardV1 from './routes/v1/onboard';
-import morganLogger from './utils/morgan_logger';
-import errorCatch from './utils/error_catch';
-import ErrorMapper from './utils/error_mapper';
+import onboardV1 from '@routes/v1/onboard';
+import userv1 from '@routes/v1/user';
+
+import errorCatch from '@utils/error_catch';
+import ErrorMapper from '@utils/error_mapper';
+import morganLogger from '@utils/morgan_logger';
 
 const app = express();
 

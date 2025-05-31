@@ -1,11 +1,12 @@
 import { Router } from 'express';
+
 import {
   createUser,
   deleteUser,
   getUserById,
   getUsers,
   updateUser,
-} from '../../usecase/user';
+} from '@usecase/user';
 
 const user = Router({ mergeParams: true });
 

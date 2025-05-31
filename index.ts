@@ -1,7 +1,9 @@
 import 'dotenv/config';
-import app from './src/app';
-import logger from './src/utils/logger';
-import { PORT } from './src/utils/constant';
+
+import { PORT } from '@utils/environment';
+import logger from '@utils/logger';
+
+import app from '@app';
 
 async function main() {
   app.listen(PORT, async () => {

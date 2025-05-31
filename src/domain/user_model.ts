@@ -1,5 +1,6 @@
-import db from '../infastructure/mongoose';
 import bcrypt from 'bcryptjs';
+
+import db from '@infrastructure/mongoose';
 
 const Schema = db.Schema;
 

@@ -1,6 +1,7 @@
 import { Mongoose } from 'mongoose';
-import logger from '../utils/logger';
-import { MONGO_URI } from '../utils/constant';
+
+import { MONGO_URI } from '@utils/environment';
+import logger from '@utils/logger';
 
 const mongoose = new Mongoose();
 mongoose.Promise = Promise;

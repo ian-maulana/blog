@@ -1,25 +1,8 @@
-import crypto from 'crypto';
-import { IUser, UserModel } from '../../domain/user_model';
-import { UserRepo } from './user_repo';
+import { IUser, UserModel } from '@domain/user_model';
+
+import { UserRepo } from '@repository/user/user_repo';
 
 class UserRepoImpl implements UserRepo {
-  async getPasswordToken(id: string): Promise<string | undefined> {
-    const docs = await UserModel.findOne({ _id: id }).exec();
-
-    if (docs) {
-      const token = crypto.randomBytes(20).toString('hex');
-      docs.passwordTokenExpired = new Date(Date.now() + 10 * 60 * 1000);
-      docs.passwordToken = crypto
-        .createHash('sha256')
-        .update(token)
-        .digest('hex');
-
-      await docs.save();
-
-      return token;
-    }
-  }
-
   async findById(id: string): Promise<IUser | null> {
     const docs = await UserModel.findById(id).exec();
     if (!docs) return null;
@@ -54,6 +37,7 @@ class UserRepoImpl implements UserRepo {
     const docs = await UserModel.findOne({ _id: user.id }).exec();
 
     if (docs) {
+      docs.email = user.email;
       docs.name = user.name;
       docs.status = user.status;
       docs.role = user.role;
