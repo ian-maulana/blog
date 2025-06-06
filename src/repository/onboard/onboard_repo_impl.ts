@@ -1,10 +1,37 @@
+import { compare } from 'bcryptjs';
 import { createHash, randomBytes } from 'crypto';
+import { sign } from 'jsonwebtoken';
 
 import { IUser, UserModel } from '@domain/user_model';
+
+import { JWT_EXPIRE, JWT_SECRET } from '@utils/environment';
 
 import OnboardRepo from '@repository/onboard/onboard_repo';
 
 class OnboardRepoImpl implements OnboardRepo {
+  async getSignedJwtToken(userId: string): Promise<string> {
+    return sign({ id: userId }, JWT_SECRET, {
+      expiresIn: JWT_EXPIRE,
+    });
+  }
+
+  async verifyUser(user: Partial<IUser>): Promise<IUser | null> {
+    const doc = await UserModel.findOne({ email: user.email })
+      .select('+password')
+      .lean();
+
+    if (user.password && doc?.password) {
+      const isMatch = await compare(user.password, doc.password);
+
+      if (isMatch) {
+        const { _id, __v, password, ...rest } = doc;
+        return { ...rest, id: _id.toString() };
+      }
+    }
+
+    return null;
+  }
+
   async resetPassword(token: string, password: string): Promise<IUser | null> {
     // Get hashed token
     const passwordToken = createHash('sha256').update(token).digest('hex');

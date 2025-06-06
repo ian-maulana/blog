@@ -5,7 +5,6 @@ import db from '@infrastructure/mongoose';
 const Schema = db.Schema;
 
 export interface IUser {
-  _id?: string;
   id: string;
   email: string;
   password?: string;
@@ -14,6 +13,7 @@ export interface IUser {
   name: string;
   status: string;
   role: string;
+  token?: string;
 }
 
 const schema = new Schema<IUser>(

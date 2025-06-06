@@ -4,12 +4,53 @@ import sendEmail from 'src/infrastructure/send_email';
 import ResponseModel from '@domain/response_model';
 
 import asyncCatch from '@utils/async_catch';
+import { JWT_COOKIE_EXPIRE } from '@utils/environment';
 import ErrorParser from '@utils/error_parser';
 import logger from '@utils/logger';
 
 import OnboardRepoImpl from '@repository/onboard/onboard_repo_impl';
 
 const onboardRepo = new OnboardRepoImpl();
+
+/**
+ * @desc Login
+ * @route POST /api/v1/onboard/login
+ * @acces Private
+ */
+export const login = asyncCatch(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { email, password } = req.body;
+
+    if (!email && !password) {
+      return next(new ErrorParser('Please provide an email and password', 400));
+    }
+
+    const doc = await onboardRepo.verifyUser(req.body);
+
+    if (!doc) {
+      return next(new ErrorParser('Invalid credentials', 401));
+    }
+
+    // Create token
+    const token = await onboardRepo.getSignedJwtToken(doc.id);
+    doc.token = token;
+
+    const options = {
+      expires: new Date(Date.now() + JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000),
+      httpOnly: true,
+      secure: false,
+    };
+
+    if (process.env.NODE_ENV === 'production') {
+      options.secure = true;
+    }
+
+    res
+      .status(200)
+      .cookie('token', token, options)
+      .json(new ResponseModel(doc, '0000', 'Success'));
+  },
+);
 
 /**
  * @desc Create Password

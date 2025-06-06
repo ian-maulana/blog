@@ -47,7 +47,7 @@ class UserRepoImpl implements UserRepo {
     const doc = new UserModel({
       name: user.name,
       email: user.email,
-      password: user.password,
+      password: user.password ?? '123123Ap!',
       status: user.status,
       role: user.role,
     });
