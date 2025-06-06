@@ -5,6 +5,7 @@ import db from '@infrastructure/mongoose';
 const Schema = db.Schema;
 
 export interface IUser {
+  _id?: string;
   id: string;
   email: string;
   password?: string;
@@ -49,7 +50,16 @@ const schema = new Schema<IUser>(
       default: 'admin',
     },
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+    toJSON: {
+      virtuals: true,
+      versionKey: false,
+      transform: (_doc, res) => {
+        delete res._id;
+      },
+    },
+  },
 );
 
 schema.pre('save', async function (next) {

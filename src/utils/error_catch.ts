@@ -2,11 +2,11 @@ import { NextFunction, Request, Response } from 'express';
 
 import ResponseModel from '@domain/response_model';
 
-import ErrorMapper from '@utils/error_mapper';
+import ErrorParser from '@utils/error_parser';
 import logger from '@utils/logger';
 
 const errorCatch = (
-  err: ErrorMapper,
+  err: ErrorParser,
   _req: Request,
   res: Response,
   _next: NextFunction,
@@ -22,13 +22,13 @@ const errorCatch = (
   // Mongoose bad ObjectId
   if (err.name === 'CastError') {
     message = `Resource not found`;
-    error = new ErrorMapper(message, 404);
+    error = new ErrorParser(message, 404);
   }
 
   // Mongoose duplicate key
   if (err.code === 11000) {
     message = 'Duplicate field value entered';
-    error = new ErrorMapper(message, 400);
+    error = new ErrorParser(message, 400);
   }
 
   // Mongoose validation error
@@ -37,7 +37,7 @@ const errorCatch = (
     const messages = Object.values(errors).map(v => v.message);
 
     if ((messages ?? []).length > 0) {
-      error = new ErrorMapper(messages[0], 400);
+      error = new ErrorParser(messages[0], 400);
     }
   }
 

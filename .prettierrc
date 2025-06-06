@@ -7,10 +7,10 @@
   "importOrder": [
     "^@infrastructure(.*)$",
     "^@domain(.*)$",
-    "^@repository(.*)$",
     "^@usecase(.*)$",
     "^@routes(.*)$",
     "^@utils(.*)$",
+    "^@repository(.*)$",
     "^@app(.*)$",
     "^[./]"
   ],

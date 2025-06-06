@@ -1,5 +1,8 @@
 import { IUser } from '@domain/user_model';
 
-export interface OnboardRepo {
+interface OnboardRepo {
+  createPasswordToken(email: string): Promise<string | null>;
   resetPassword(token: string, password: string): Promise<IUser | null>;
 }
+
+export default OnboardRepo;

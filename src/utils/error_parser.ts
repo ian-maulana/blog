@@ -1,4 +1,4 @@
-class ErrorMapper extends Error {
+class ErrorParser extends Error {
   code?: number;
   errors?: Error;
   statusCode: number;
@@ -11,4 +11,4 @@ class ErrorMapper extends Error {
   }
 }
 
-export default ErrorMapper;
+export default ErrorParser;
