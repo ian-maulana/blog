@@ -14,6 +14,35 @@ import OnboardRepoImpl from '@repository/onboard/onboard_repo_impl';
 const onboardRepo = new OnboardRepoImpl();
 
 /**
+ * @desc Change Password
+ * @route POST /api/v1/onboard/change-password
+ * @acces Private
+ */
+export const changePassword = asyncCatch(
+  async (req: ProtectedRequest, res: Response, next: NextFunction) => {
+    const { currentPassword, newPassword } = req.body;
+
+    if (!currentPassword || !newPassword) {
+      return next(
+        new ErrorParser('Please input current password & new password', 400),
+      );
+    }
+
+    const doc = await onboardRepo.updatePassword(
+      req.user?.id ?? '',
+      req.body.currentPassword,
+      req.body.newPassword,
+    );
+
+    if (!doc) {
+      return next(new ErrorParser('Password is incorrect', 400));
+    }
+
+    res.status(200).json(new ResponseModel(null, '0000', 'Success'));
+  },
+);
+
+/**
  * @desc Logout
  * @route POST /api/v1/onboard/logout
  * @acces Private

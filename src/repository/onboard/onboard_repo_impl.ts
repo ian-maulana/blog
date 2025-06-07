@@ -9,6 +9,29 @@ import { JWT_EXPIRE, JWT_SECRET } from '@utils/environment';
 import OnboardRepo from '@repository/onboard/onboard_repo';
 
 class OnboardRepoImpl implements OnboardRepo {
+  async updatePassword(
+    userId: string,
+    currentPassword: string,
+    newPassword: string,
+  ): Promise<IUser | null> {
+    const doc = await UserModel.findOne({
+      _id: userId,
+    }).select('+password');
+
+    if (currentPassword && doc?.password) {
+      const isMatch = await compare(currentPassword, doc.password);
+
+      if (isMatch) {
+        doc.password = newPassword;
+        doc.save();
+
+        return doc;
+      }
+    }
+
+    return null;
+  }
+
   async getSignedJwtToken(userId: string): Promise<string> {
     return sign({ id: userId }, JWT_SECRET, {
       expiresIn: JWT_EXPIRE,

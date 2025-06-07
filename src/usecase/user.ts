@@ -93,7 +93,7 @@ export const updateUser = asyncCatch(
       );
     }
 
-    res.status(200).json(new ResponseModel<null>(null, '0000', 'Success'));
+    res.status(200).json(new ResponseModel(null, '0000', 'Success'));
   },
 );
 
@@ -112,6 +112,6 @@ export const deleteUser = asyncCatch(
       );
     }
 
-    res.status(200).json(new ResponseModel<null>(null, '0000', 'Success'));
+    res.status(200).json(new ResponseModel(null, '0000', 'Success'));
   },
 );

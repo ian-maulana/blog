@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import {
+  changePassword,
   createPassword,
   forgotPassword,
   getMe,
@@ -17,5 +18,6 @@ onboard.route('/password/:token').post(createPassword);
 onboard.route('/login').post(login);
 onboard.route('/logout').post(logout);
 onboard.route('/me').get(protect, getMe);
+onboard.route('/change-password').post(protect, changePassword);
 
 export default onboard;
