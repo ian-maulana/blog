@@ -16,7 +16,7 @@ export interface IUser {
   token?: string;
 }
 
-const schema = new Schema<IUser>(
+const UserSchema = new Schema<IUser>(
   {
     name: {
       type: String,
@@ -62,7 +62,7 @@ const schema = new Schema<IUser>(
   },
 );
 
-schema.pre('save', async function (next) {
+UserSchema.pre('save', async function (next) {
   if (this.password) {
     if (!this.isModified('password')) {
       next();
@@ -73,4 +73,4 @@ schema.pre('save', async function (next) {
   }
 });
 
-export const UserModel = db.model<IUser>('User', schema);
+export const UserModel = db.model<IUser>('User', UserSchema);

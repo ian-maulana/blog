@@ -20,7 +20,7 @@ export interface IProvider {
   meta?: Record<string, unknown>;
 }
 
-const schema = new Schema<IProvider>(
+const ProviderSchema = new Schema<IProvider>(
   {
     name: {
       type: String,
@@ -58,4 +58,4 @@ const schema = new Schema<IProvider>(
   },
 );
 
-export const ProviderModel = db.model<IProvider>('Provider', schema);
+export const ProviderModel = db.model<IProvider>('Provider', ProviderSchema);

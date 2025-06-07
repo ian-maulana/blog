@@ -17,7 +17,7 @@ export interface IChannel {
   meta?: Record<string, unknown>;
 }
 
-const schema = new Schema<IChannel>(
+const ChannelSchema = new Schema<IChannel>(
   {
     provider: {
       type: Schema.Types.ObjectId,
@@ -61,4 +61,4 @@ const schema = new Schema<IChannel>(
   },
 );
 
-export const ChannelModel = db.model<IChannel>('Channel', schema);
+export const ChannelModel = db.model<IChannel>('Channel', ChannelSchema);

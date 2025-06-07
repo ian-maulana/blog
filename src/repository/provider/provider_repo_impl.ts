@@ -17,6 +17,8 @@ class ProviderRepoImpl implements ProviderRepo {
     if (doc) {
       doc.name = provider.name;
       doc.status = provider.status;
+      doc.credentials = provider.credentials;
+      doc.meta = provider.meta;
 
       await doc.save();
     }
@@ -34,6 +36,7 @@ class ProviderRepoImpl implements ProviderRepo {
       name: provider.name,
       apiUrl: provider.apiUrl,
       credentials: provider.credentials,
+      meta: provider.meta,
     });
 
     const result = await doc.save();

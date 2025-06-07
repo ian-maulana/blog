@@ -6,7 +6,9 @@ import ChannelRepo from './channel_repo';
 
 class ChannelRepoImpl implements ChannelRepo {
   async findOne(channel: Partial<IChannel>): Promise<IChannel | null> {
-    const doc = await ChannelModel.findOne(transformObjectId(channel)).exec();
+    const doc = await ChannelModel.findOne(transformObjectId(channel))
+      .populate({ path: 'provider', select: '-meta -credentials -apiUrl' })
+      .exec();
     return doc;
   }
 
@@ -50,7 +52,9 @@ class ChannelRepoImpl implements ChannelRepo {
   }
 
   async find(): Promise<IChannel[]> {
-    const docs = await ChannelModel.find().exec();
+    const docs = await ChannelModel.find()
+      .populate({ path: 'provider', select: '-meta -credentials -apiUrl' })
+      .exec();
     return docs;
   }
 }

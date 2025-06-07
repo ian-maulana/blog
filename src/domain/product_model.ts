@@ -1,21 +1,24 @@
+import { Types } from 'mongoose';
+
 import db from '@infrastructure/mongoose';
 
-import { ChannelModel, IChannel } from './channel_model';
+import { IChannel } from './channel_model';
 
 const Schema = db.Schema;
 
 export interface IProduct {
+  id: string;
   name: string;
   category: string;
   nominal: number;
   description: string;
   sku: string;
   status: string;
-  markup: number;
-  channels: IChannel;
+  defaultMarkup: number;
+  channels: Types.ObjectId[] | IChannel[];
 }
 
-const schema = new Schema<IProduct>(
+const ProductSchema = new Schema<IProduct>(
   {
     name: {
       type: String,
@@ -40,11 +43,11 @@ const schema = new Schema<IProduct>(
       enum: ['active', 'inactive'],
       default: 'active',
     },
-    markup: {
+    defaultMarkup: {
       type: Number,
       default: 0,
     },
-    channels: [ChannelModel],
+    channels: [{ type: Schema.Types.ObjectId, ref: 'Channel' }],
   },
   {
     timestamps: true,
@@ -58,4 +61,4 @@ const schema = new Schema<IProduct>(
   },
 );
 
-export const ProductModel = db.model<IProduct>('Product', schema);
+export const ProductModel = db.model<IProduct>('Product', ProductSchema);
