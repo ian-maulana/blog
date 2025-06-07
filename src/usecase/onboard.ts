@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import sendEmail from 'src/infrastructure/send_email';
 
+import ProtectedRequest from '@domain/request_model';
 import ResponseModel from '@domain/response_model';
 
 import asyncCatch from '@utils/async_catch';
@@ -11,6 +12,22 @@ import logger from '@utils/logger';
 import OnboardRepoImpl from '@repository/onboard/onboard_repo_impl';
 
 const onboardRepo = new OnboardRepoImpl();
+
+/**
+ * @desc Logout
+ * @route POST /api/v1/onboard/logout
+ * @acces Private
+ */
+export const logout = asyncCatch(
+  async (_req: Request, res: Response, _next: NextFunction) => {
+    res.cookie('token', 'none', {
+      expires: new Date(Date.now() + 10 * 1000),
+      httpOnly: true,
+    });
+
+    res.status(200).json(new ResponseModel(null, '0000', 'Success'));
+  },
+);
 
 /**
  * @desc Login
@@ -78,17 +95,10 @@ export const createPassword = asyncCatch(
  * @acces Private
  */
 export const getMe = asyncCatch(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const users = await onboardRepo.resetPassword(
-      req.params.token,
-      req.body.password,
-    );
+  async (req: ProtectedRequest, res: Response, _next: NextFunction) => {
+    const user = req.user;
 
-    if (!users) {
-      return next(new ErrorParser('Invalid Token', 400));
-    }
-
-    res.status(200).json(new ResponseModel(null, '0000', 'Success'));
+    res.status(200).json(new ResponseModel(user, '0000', 'Success'));
   },
 );
 

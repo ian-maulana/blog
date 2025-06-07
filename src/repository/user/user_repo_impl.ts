@@ -6,7 +6,7 @@ import UserRepo from '@repository/user/user_repo';
 
 class UserRepoImpl implements UserRepo {
   async findOne(user: Partial<IUser>): Promise<IUser | null> {
-    const doc = await UserModel.findOne(transformObjectId(user)).lean();
+    const doc = await UserModel.findOne(transformObjectId(user)).exec();
     return doc;
   }
 

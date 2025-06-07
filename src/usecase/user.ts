@@ -1,6 +1,7 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Response } from 'express';
 import sendEmail from 'src/infrastructure/send_email';
 
+import ProtectedRequest from '@domain/request_model';
 import ResponseModel from '@domain/response_model';
 import { IUser } from '@domain/user_model';
 
@@ -20,7 +21,7 @@ const onboardRepo = new OnboardRepoImpl();
  * @acces Private
  */
 export const getUsers = asyncCatch(
-  async (_req: Request, res: Response, _next: NextFunction) => {
+  async (_req: ProtectedRequest, res: Response, _next: NextFunction) => {
     const users = await userRepo.find();
 
     res.status(200).json(new ResponseModel<IUser[]>(users, '0000', 'Success'));
@@ -33,7 +34,7 @@ export const getUsers = asyncCatch(
  * @acces Private
  */
 export const getUserById = asyncCatch(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: ProtectedRequest, res: Response, next: NextFunction) => {
     const { id } = req.params;
     const user = await userRepo.findOne({ id });
 
@@ -55,7 +56,7 @@ export const getUserById = asyncCatch(
  * @acces Private
  */
 export const createUser = asyncCatch(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: ProtectedRequest, res: Response, next: NextFunction) => {
     const user = await userRepo.create(req.body);
 
     const token = await onboardRepo.createPasswordToken(user.email);
@@ -83,7 +84,7 @@ export const createUser = asyncCatch(
  * @acces Private
  */
 export const updateUser = asyncCatch(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: ProtectedRequest, res: Response, next: NextFunction) => {
     const user = await userRepo.update(req.body);
 
     if (!user) {
@@ -102,7 +103,7 @@ export const updateUser = asyncCatch(
  * @acces Private
  */
 export const deleteUser = asyncCatch(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: ProtectedRequest, res: Response, next: NextFunction) => {
     const user = await userRepo.delete(req.params.id);
 
     if (!user) {
