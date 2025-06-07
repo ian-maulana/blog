@@ -42,11 +42,11 @@ const errorCatch = (
   }
 
   // Set status body
-  status = String(error.statusCode).padStart(4, '0');
+  status = String(error.statusCode ?? 500).padStart(4, '0');
   message = error.message;
 
   res
-    .status(error.statusCode ?? 500)
+    .status(error?.statusCode || 500)
     .json(new ResponseModel(null, status, message));
 };
 
