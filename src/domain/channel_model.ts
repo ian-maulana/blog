@@ -1,5 +1,3 @@
-import { Types } from 'mongoose';
-
 import db from '@infrastructure/mongoose';
 
 import { IProvider } from '@domain/provider_model';
@@ -8,7 +6,7 @@ const Schema = db.Schema;
 
 export interface IChannel {
   id: string;
-  provider: Types.ObjectId | IProvider;
+  provider: IProvider;
   productCode: string;
   price: number;
   status: string;
@@ -17,7 +15,7 @@ export interface IChannel {
   meta?: Record<string, unknown>;
 }
 
-const ChannelSchema = new Schema<IChannel>(
+export const ChannelSchema = new Schema<IChannel>(
   {
     provider: {
       type: Schema.Types.ObjectId,

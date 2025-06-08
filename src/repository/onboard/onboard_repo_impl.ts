@@ -1,6 +1,7 @@
 import { compare } from 'bcryptjs';
-import { createHash, randomBytes } from 'crypto';
+// import { createHash, randomBytes } from 'crypto';
 import { sign } from 'jsonwebtoken';
+import { createHash, randomBytes } from 'node:crypto';
 
 import { IUser, UserModel } from '@domain/user_model';
 

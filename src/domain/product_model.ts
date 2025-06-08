@@ -1,8 +1,6 @@
-import { Types } from 'mongoose';
-
 import db from '@infrastructure/mongoose';
 
-import { IChannel } from './channel_model';
+import { IChannel } from '@domain/channel_model';
 
 const Schema = db.Schema;
 
@@ -15,7 +13,7 @@ export interface IProduct {
   sku: string;
   status: string;
   defaultMarkup: number;
-  channels: Types.ObjectId[] | IChannel[];
+  channels: IChannel[];
 }
 
 const ProductSchema = new Schema<IProduct>(

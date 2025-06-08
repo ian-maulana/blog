@@ -6,6 +6,7 @@ import channelv1 from '@routes/v1/channel';
 import onboardv1 from '@routes/v1/onboard';
 import productv1 from '@routes/v1/product';
 import providerv1 from '@routes/v1/provider';
+import transactionv1 from '@routes/v1/transaction';
 import userv1 from '@routes/v1/user';
 
 import errorCatch from '@utils/error_catch';
@@ -31,6 +32,7 @@ app.use('/api/v1/onboard', onboardv1);
 app.use('/api/v1/provider', providerv1);
 app.use('/api/v1/channel', channelv1);
 app.use('/api/v1/product', productv1);
+app.use('/api/v1/transaction', transactionv1);
 
 // handling 404 not found
 app.use((_req, _res, next) => {

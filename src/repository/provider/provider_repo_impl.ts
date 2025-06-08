@@ -19,6 +19,7 @@ class ProviderRepoImpl implements ProviderRepo {
       doc.status = provider.status;
       doc.credentials = provider.credentials;
       doc.meta = provider.meta;
+      doc.apiUrl = provider.apiUrl;
 
       await doc.save();
     }

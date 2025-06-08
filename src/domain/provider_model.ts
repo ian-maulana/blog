@@ -14,7 +14,7 @@ export interface IProvider {
   id: string;
   name: string;
   apiUrl: string;
-  credentials: IProvider;
+  credentials: IProviderCredential;
   status: string;
   description?: string;
   meta?: Record<string, unknown>;
@@ -40,7 +40,7 @@ const ProviderSchema = new Schema<IProvider>(
     },
     status: {
       type: String,
-      enum: ['active', 'inactive', 'banned'],
+      enum: ['active', 'inactive'],
       default: 'active',
     },
     description: { type: String },

@@ -1,7 +1,7 @@
 import { NextFunction, Response } from 'express';
 import { JwtPayload, verify } from 'jsonwebtoken';
 
-import ProtectedRequest from '@domain/request_model';
+import ProtectedRequest from '@domain/protected_request_model';
 
 import asyncCatch from '@utils/async_catch';
 import { JWT_SECRET } from '@utils/environment';

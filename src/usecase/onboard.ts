@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import sendEmail from 'src/infrastructure/send_email';
 
-import ProtectedRequest from '@domain/request_model';
+import ProtectedRequest from '@domain/protected_request_model';
 import ResponseModel from '@domain/response_model';
 
 import asyncCatch from '@utils/async_catch';

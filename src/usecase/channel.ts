@@ -1,7 +1,7 @@
 import { NextFunction, Response } from 'express';
 
 import { IChannel } from '@domain/channel_model';
-import ProtectedRequest from '@domain/request_model';
+import ProtectedRequest from '@domain/protected_request_model';
 import ResponseModel from '@domain/response_model';
 
 import asyncCatch from '@utils/async_catch';

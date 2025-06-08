@@ -1,7 +1,7 @@
 import { NextFunction, Response } from 'express';
 import sendEmail from 'src/infrastructure/send_email';
 
-import ProtectedRequest from '@domain/request_model';
+import ProtectedRequest from '@domain/protected_request_model';
 import ResponseModel from '@domain/response_model';
 import { IUser } from '@domain/user_model';
 

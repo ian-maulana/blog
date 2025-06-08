@@ -10,6 +10,7 @@ class ProductRepoImpl implements ProductRepo {
       .populate({
         path: 'channels',
         select: '-meta -provider',
+        populate: { path: 'provider', select: '-credentials -apiUrl' },
       })
       .exec();
     return doc;
@@ -59,6 +60,7 @@ class ProductRepoImpl implements ProductRepo {
       .populate({
         path: 'channels',
         select: '-meta -provider',
+        populate: { path: 'provider', select: '-credentials -apiUrl' },
       })
       .exec();
     return docs;
